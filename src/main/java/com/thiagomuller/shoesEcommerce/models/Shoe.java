@@ -1,9 +1,20 @@
 package com.thiagomuller.shoesEcommerce.models;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+
+
 
 @Entity
-public class Shoes {
+@Table(name="SHOES")
+public class Shoe {
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	private int size;
 	private String brand;
@@ -16,8 +27,25 @@ public class Shoes {
 	private String material;
 	
 	
-	public Shoes() {}
+	protected Shoe() {}
+	
+	public Shoe(int size, String brand, String imageUrl, String color, double price, String madeIn, String shoesType, Beak beak, String material) {
+		this.size = size;
+		this.brand = brand;
+		this.imageUrl = imageUrl;
+		this.color = color;
+		this.price = price;
+		this.madeIn = madeIn;
+		this.shoesType = shoesType;
+		this.beak = beak;
+		this.material = material;
+	}
 
+
+	
+	public Long getId() {
+		return id;
+	}
 
 	public int getSize() {
 		return size;

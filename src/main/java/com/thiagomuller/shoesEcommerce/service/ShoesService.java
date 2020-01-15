@@ -1,13 +1,17 @@
 package com.thiagomuller.shoesEcommerce.service;
 
 import java.util.List;
+import java.util.Optional;
 
-import com.thiagomuller.shoesEcommerce.models.Shoes;
+import org.springframework.stereotype.Service;
+
+import com.thiagomuller.shoesEcommerce.models.Shoe;
+
 
 public interface ShoesService {
-	public Shoes getById(Long id);
-	public List<Shoes> getAllShoes();
-	public Long createShoes(Shoes shoes);
-	public boolean updateShoes(Shoes shoes);
-	public boolean deleteShoes(Long id);
+	public Optional<Shoe> getById(Long id);
+	public Iterable<Shoe> getAllShoes();
+	public Long createShoe(Shoe shoes);
+	public Shoe updateShoe(Shoe shoes);
+	public void deleteShoe(Long id);
 }

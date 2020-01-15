@@ -1,6 +1,7 @@
 package com.thiagomuller.shoesEcommerce.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.thiagomuller.shoesEcommerce.models.Shoes;
+import com.thiagomuller.shoesEcommerce.models.Shoe;
 import com.thiagomuller.shoesEcommerce.service.ShoesService;
 
 @RestController
@@ -25,31 +26,31 @@ public class ShoesController {
 	private ShoesService service;
 	
 	@GetMapping()
-	public List<Shoes> findAll(){
+	public Iterable<Shoe> findAll(){
 		return service.getAllShoes();
 	}
 	
 	@GetMapping(value = "/{id}")
-	public Shoes findById(@PathVariable("id") Long id) {
+	public Optional<Shoe> findById(@PathVariable("id") Long id) {
 		return service.getById(id);
 	}
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Long create(@RequestBody Shoes resource) {
-		return service.createShoes(resource);
+	public Long create(@RequestBody Shoe resource) {
+		return service.createShoe(resource);
 	}
 	
 	@PutMapping(value = "/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public void update(@PathVariable("id") Long id, @RequestBody Shoes resource) {
-		service.updateShoes(resource);
+	public void update(@PathVariable("id") Long id, @RequestBody Shoe resource) {
+		service.updateShoe(resource);
 	}
 	
 	@DeleteMapping(value = "/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public void delete(@PathVariable("id") Long id) {
-		service.deleteShoes(id);
+		service.deleteShoe(id);
 	}
 	
 }
