@@ -32,19 +32,19 @@ public class ShoesController {
 	
 	@GetMapping(value = "/{id}")
 	public Optional<Shoe> findById(@PathVariable("id") Long id) {
-		return service.getById(id);
+		return service.findShoeById(id);
 	}
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Long create(@RequestBody Shoe resource) {
-		return service.createShoe(resource);
+	public Shoe create(@RequestBody Shoe resource) {
+		return service.save(resource);
 	}
 	
-	@PutMapping(value = "/{id}")
+	@PutMapping
 	@ResponseStatus(HttpStatus.OK)
-	public void update(@PathVariable("id") Long id, @RequestBody Shoe resource) {
-		service.updateShoe(resource);
+	public Shoe update(@RequestBody Shoe resource) {
+		return service.save(resource);
 	}
 	
 	@DeleteMapping(value = "/{id}")

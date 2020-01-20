@@ -14,7 +14,7 @@ import javax.persistence.Table;
 public class Shoe {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Long id;
 	private int size;
 	private String brand;
@@ -29,7 +29,8 @@ public class Shoe {
 	
 	protected Shoe() {}
 	
-	public Shoe(int size, String brand, String imageUrl, String color, double price, String madeIn, String shoesType, Beak beak, String material) {
+	public Shoe(Long id, int size, String brand, String imageUrl, String color, double price, String madeIn, String shoesType, Beak beak, String material) {
+		this.id = id;
 		this.size = size;
 		this.brand = brand;
 		this.imageUrl = imageUrl;
@@ -45,6 +46,10 @@ public class Shoe {
 	
 	public Long getId() {
 		return id;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public int getSize() {

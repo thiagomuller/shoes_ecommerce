@@ -19,7 +19,7 @@ public class ShoesServiceImpl implements ShoesService{
 	private ShoesRepository shoesRepository;
 
 	@Override
-	public Optional<Shoe> getById(Long id) {
+	public Optional<Shoe> findShoeById(Long id) {
 		return shoesRepository.findById(id);
 	}
 
@@ -27,20 +27,15 @@ public class ShoesServiceImpl implements ShoesService{
 	public Iterable<Shoe> getAllShoes() {
 		return shoesRepository.findAll();
 	}
-
+	
 	@Override
-	public Long createShoe(Shoe shoe) {
-		return shoesRepository.save(shoe).getId();
-	}
-
-	@Override
-	public Shoe updateShoe(Shoe shoe) {
+	public Shoe save(Shoe shoe) {
 		return shoesRepository.save(shoe);
 	}
 
 	@Override
 	public void deleteShoe(Long id) {
-		shoesRepository.deleteById(id);;
+		shoesRepository.deleteById(id);
 	}
 
 }
