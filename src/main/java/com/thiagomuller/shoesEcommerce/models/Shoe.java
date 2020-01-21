@@ -30,7 +30,6 @@ public class Shoe {
 	protected Shoe() {}
 	
 	public Shoe(Long id, int size, String brand, String imageUrl, String color, double price, String madeIn, String shoesType, Beak beak, String material) {
-		this.id = id;
 		this.size = size;
 		this.brand = brand;
 		this.imageUrl = imageUrl;
