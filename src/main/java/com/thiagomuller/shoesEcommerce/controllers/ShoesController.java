@@ -41,7 +41,7 @@ public class ShoesController {
 		return service.save(resource);
 	}
 	
-	@PutMapping
+	@PutMapping(value = "/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public Shoe update(@RequestBody Shoe resource) {
 		return service.save(resource);

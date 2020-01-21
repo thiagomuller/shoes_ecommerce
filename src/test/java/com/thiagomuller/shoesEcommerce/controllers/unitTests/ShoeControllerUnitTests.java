@@ -24,6 +24,7 @@ import com.thiagomuller.shoesEcommerce.models.Shoe;
 import com.thiagomuller.shoesEcommerce.service.ShoesService;
 import static org.mockito.BDDMockito.given;
 
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -74,27 +75,28 @@ public class ShoeControllerUnitTests {
 
 	@Test
 	public void verifyIfPostRouteCreatesAShoeWithGivenInformation() throws Exception{
-		Optional<Shoe> firstShoe = Optional.of(new Shoe(Long.valueOf(1),38,"Dafiti","https://teste.com.br","Purple",200.45,"Brazil","Boot",Beak.ROUND,"Syntetic"));
+		Optional<Shoe> firstShoe = Optional.of(new Shoe(Long.valueOf(1),38,"Dafiti","https://teste.com.br",//
+				"Purple",200.45,"Brazil","Boot",Beak.ROUND,"Syntetic"));
 		given(service.save(firstShoe.get())).willReturn(firstShoe.get());
+		String json = TestUtils.asJsonString(firstShoe.get());
 		mvc.perform(post("/shoes")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(TestUtils.asJsonString(firstShoe.get()))
+				.content(json)
 				.characterEncoding("utf-8"))
 		.andExpect(status().isCreated())
 		.andExpect(jsonPath("$.brand", is(firstShoe.get().getBrand())));
 	}
-	
+
 	@Test
 	public void verifyIfUpdateRouteUpdatesShoesWithGivenInformation() throws Exception{
-		Optional<Shoe> firstShoe = Optional.of(new Shoe(Long.valueOf(1),38,"Dafiti","https://teste.com.br","Purple",200.45,"Brazil","Boot",Beak.ROUND,"Syntetic"));
-		Optional<Shoe> updatedShoe = Optional.of(new Shoe(Long.valueOf(1),42,"Nike","https://teste.com.br","Purple",200.45,"Brazil","Boot",Beak.ROUND,"Syntetic"));
+		Optional<Shoe> updatedShoe = Optional.of(new Shoe(Long.valueOf(1),42,"Nike","https://teste.com.br",//
+				"Purple",200.45,"Brazil","Boot",Beak.ROUND,"Syntetic"));
 		given(service.save(updatedShoe.get())).willReturn(updatedShoe.get());		
-		mvc.perform(put("/shoes/" + firstShoe.get().getId())
+		mvc.perform(put("/shoes/" + updatedShoe.get().getId())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(TestUtils.asJsonString(updatedShoe.get()))
 				.characterEncoding("utf-8"))
 		.andExpect(status().isOk())
-		.andExpect(jsonPath("$.brand", is(updatedShoe.get().getBrand())))
-		.andExpect(jsonPath("$.size", is(updatedShoe.get().getSize())));
+		.andExpect(jsonPath("$.brand", is(updatedShoe.get().getBrand())));
 	}
 }
