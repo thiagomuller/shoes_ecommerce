@@ -38,4 +38,7 @@ public class ShoesServiceImpl implements ShoesService{
 		shoesRepository.deleteById(id);
 	}
 
+	@Override
+	public void deleteAllShoes(){shoesRepository.deleteAll();}
+
 }

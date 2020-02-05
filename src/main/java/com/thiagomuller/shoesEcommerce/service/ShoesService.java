@@ -10,4 +10,5 @@ public interface ShoesService {
 	public Iterable<Shoe> getAllShoes();
 	public Shoe save(Shoe shoe);
 	public void deleteShoe(Long id);
+	public void deleteAllShoes();
 }

@@ -7,9 +7,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -34,10 +34,7 @@ import com.thiagomuller.shoesEcommerce.service.ShoesService;
 		classes = ShoesEcommerceApplication.class,
 		properties = ("spring.h2.console.enabled=true"))
 @AutoConfigureMockMvc
-@TestPropertySource(
-		locations = "classpath:application-integrationtest.properties"
-)
-//I'm also not using @TestPropertySource annotation, cuz I'm using H2 from both running my application so far, and  the tests
+@TestPropertySource("classpath:application-integrationtest.properties")
 public class ShoesControllerWebLayerIntegrationTest {
 	
 	@Autowired
@@ -50,7 +47,7 @@ public class ShoesControllerWebLayerIntegrationTest {
 	private Shoe secondTestShoe;
 	private Shoe thirdTestShoe;
 
-	@BeforeEach
+	@Before
 	public void createShoesForTestingOnDatabase(){
 		firstTestShoe = new Shoe(Long.valueOf(1),38,"Dafiti","https://teste.com.br","Purple",//
 				200.45,"Brazil","Boot",Beak.ROUND,"Syntetic");
@@ -60,10 +57,9 @@ public class ShoesControllerWebLayerIntegrationTest {
 		service.save(secondTestShoe);
 	}
 
-	@AfterEach
+	@After
 	public void deleteTestShoesData(){
-		service.deleteShoe(Long.valueOf(1));
-		service.deleteShoe(Long.valueOf(2));
+		service.deleteAllShoes();
 	}
 	
 	@Test()
@@ -137,7 +133,7 @@ public class ShoesControllerWebLayerIntegrationTest {
 				.andExpect(content()
 						.contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
 
-		mvc.perform(get("/shoes/1")
+		mvc.perform(get("/shoes/5")
 		.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(content()
